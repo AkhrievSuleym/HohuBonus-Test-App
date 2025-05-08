@@ -31,7 +31,7 @@ class _NotePageState extends State<NotePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Note App",
+          "Dog Journal",
           style: TextStyle(
             fontFamily: 'BigShouldersStencil',
             fontSize: 28,
