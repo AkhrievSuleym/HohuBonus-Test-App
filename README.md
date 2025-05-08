@@ -50,8 +50,8 @@
 
 ## Снимки экрана
 <p align="center">
-     <img src="" style="width: 200px; height: auto;">
-     <img src="" style="width: 200px; height: auto;">
-     <img src="" style="width: 200px; height: auto;">
-     <img src="" style="width: 200px; height: auto;">
+     <img src="https://github.com/user-attachments/assets/fa8c117d-2d8a-4ce6-8af3-12836c10b80c" style="width: 200px; height: auto;">
+     <img src="https://github.com/user-attachments/assets/a8a44c90-f956-46fd-8190-7930b3ccef1c" style="width: 200px; height: auto;">
+     <img src="https://github.com/user-attachments/assets/3709bbe2-5804-4932-9ec5-8cab517869d1" style="width: 200px; height: auto;">
+     <img src="https://github.com/user-attachments/assets/e4d6b34f-b14e-4df8-a93a-362a578aeca3" style="width: 200px; height: auto;">
 </p>
