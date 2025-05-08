@@ -64,6 +64,15 @@ class _NewNotePageState extends State<NewNotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "New Note",
+          style: TextStyle(
+            fontFamily: 'BigShouldersStencil',
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -99,7 +108,7 @@ class _NewNotePageState extends State<NewNotePage> {
                         ? GestureDetector(
                             onTap: selectImage,
                             child: SizedBox(
-                              height: 150,
+                              height: 250,
                               width: double.infinity,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),

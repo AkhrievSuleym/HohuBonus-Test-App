@@ -50,7 +50,7 @@ class _NoteViewerPageState extends State<NoteViewerPage> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  '${formatDateBydMMMYYYY(widget.note.updatedAt)}} min',
+                  formatDateBydMMMYYYY(widget.note.updatedAt),
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     color: AppPallete.greyColor,
