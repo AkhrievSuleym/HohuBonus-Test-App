@@ -48,3 +48,10 @@
 4. Запустите приложение:
    - flutter run lib/main.dart
 
+## Снимки экрана
+<p align="center">
+     <img src="" style="width: 200px; height: auto;">
+     <img src="" style="width: 200px; height: auto;">
+     <img src="" style="width: 200px; height: auto;">
+     <img src="" style="width: 200px; height: auto;">
+</p>
