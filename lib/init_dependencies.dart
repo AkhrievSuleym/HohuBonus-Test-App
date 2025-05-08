@@ -1,26 +1,12 @@
-import 'package:blog_app/core/common/cubits/app_user/app_user_cubit.dart';
-import 'package:blog_app/core/common/cubits/update_user/update_user_cubit.dart';
-import 'package:blog_app/core/network/connection.dart';
-import 'package:blog_app/core/secrets/app_secrets.dart';
-import 'package:blog_app/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:blog_app/features/auth/data/repository/auth_repository_impl.dart';
-import 'package:blog_app/features/auth/domain/repository/auth_repository.dart';
-import 'package:blog_app/features/auth/domain/usecases/current_user.dart';
-import 'package:blog_app/features/auth/domain/usecases/update_user.dart';
-import 'package:blog_app/features/auth/domain/usecases/user_login.dart';
-import 'package:blog_app/features/auth/domain/usecases/user_sign_up.dart';
-import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:blog_app/features/blog/data/datasources/blog_local_data_source.dart';
-import 'package:blog_app/features/blog/data/datasources/blog_remote_data_source.dart';
-import 'package:blog_app/features/blog/data/repositories/blog_repository_impl.dart';
-import 'package:blog_app/features/blog/domain/repositories/blog_repository.dart';
-import 'package:blog_app/features/blog/domain/usecases/delete_blog.dart';
-import 'package:blog_app/features/blog/domain/usecases/get_all_blogs.dart';
-import 'package:blog_app/features/blog/domain/usecases/get_all_blogs_by_id.dart';
-import 'package:blog_app/features/blog/domain/usecases/update_blog.dart';
-import 'package:blog_app/features/blog/domain/usecases/upload_blog.dart';
-import 'package:blog_app/features/auth/domain/usecases/user_sign_out.dart';
-import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
+import 'package:hb_test_app/core/network/connection.dart';
+import 'package:hb_test_app/core/secrets/app_secrets.dart';
+import 'package:hb_test_app/features/note/data/datasources/note_local_data_source.dart';
+import 'package:hb_test_app/features/note/data/datasources/note_remote_data_source.dart';
+import 'package:hb_test_app/features/note/data/repositories/note_repository_impl.dart';
+import 'package:hb_test_app/features/note/domain/repositories/note_repository.dart';
+import 'package:hb_test_app/features/note/domain/usecases/get_all_notes.dart';
+import 'package:hb_test_app/features/note/domain/usecases/upload_note.dart';
+import 'package:hb_test_app/features/note/presentation/bloc/note_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
@@ -31,8 +17,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
-  _initAuth();
-  _initBlog();
+  _initNote();
   final supabase = await Supabase.initialize(
       url: AppSecrets.supabaseUrl, anonKey: AppSecrets.supabaseKey);
 
@@ -41,9 +26,7 @@ Future<void> initDependencies() async {
   serviceLocator.registerLazySingleton(() => supabase.client);
 
   //core
-  serviceLocator.registerLazySingleton(() => AppUserCubit());
-  serviceLocator.registerLazySingleton(() => UpdateUserCubit(serviceLocator()));
-  serviceLocator.registerLazySingleton(() => Hive.box(name: 'blogs'));
+  serviceLocator.registerLazySingleton(() => Hive.box(name: 'notes'));
   serviceLocator.registerFactory(() => InternetConnection());
 
   serviceLocator.registerLazySingleton(() => Logger());
@@ -52,77 +35,22 @@ Future<void> initDependencies() async {
       () => ConnectionCheckerImpl(serviceLocator()));
 }
 
-void _initAuth() {
-  serviceLocator
-    ..registerFactory<AuthRemoteDataSource>(
-      () => AuthRemoteDataSourceImpl(
-        serviceLocator(),
-        serviceLocator(),
-      ),
-    )
-    ..registerFactory<AuthRepository>(
-      () => AuthRepositoryImpl(
-        serviceLocator(),
-        serviceLocator(),
-        serviceLocator(),
-      ),
-    )
-    //Usecases
-    ..registerFactory(
-      () => UserSignUp(
-        serviceLocator(),
-      ),
-    )
-    ..registerFactory(
-      () => CurrentUser(
-        serviceLocator(),
-      ),
-    )
-    ..registerFactory(
-      () => UserSignOut(
-        serviceLocator(),
-      ),
-    )
-    ..registerFactory(
-      () => UpdateUser(
-        serviceLocator(),
-      ),
-    )
-    ..registerFactory(
-      () => UserLogin(
-        serviceLocator(),
-      ),
-    );
-
-  //AuthBloc
-  serviceLocator.registerLazySingleton(
-    () => AuthBloc(
-      userSignUp: serviceLocator(),
-      userLogin: serviceLocator(),
-      currentUser: serviceLocator(),
-      appUserCubit: serviceLocator(),
-      userSignOut: serviceLocator(),
-      updateUser: serviceLocator(),
-    ),
-  );
-}
-
-void _initBlog() {
+void _initNote() {
   serviceLocator
     //DataSource
-    ..registerFactory<BlogRemoteDataSource>(
-      () => BlogRemoteDataSourceImpl(
+    ..registerFactory<NoteRemoteDataSource>(
+      () => NoteRemoteDataSourceImpl(
         serviceLocator(),
         serviceLocator(),
       ),
     )
-    // ..registerFactory<BlogLocalDataSource>(
-    //   () => BlogLocalDataSourceImpl(
-    //     serviceLocator(),
-    //   ),
-    // )
-    ..registerFactory<BlogRepository>(
-      () => BlogRepositoryImpl(
+    ..registerFactory<NoteLocalDataSource>(
+      () => NoteLocalDataSourceImpl(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<NoteRepository>(
+      () => NoteRepositoryImpl(
         serviceLocator(),
         serviceLocator(),
         serviceLocator(),
@@ -131,39 +59,20 @@ void _initBlog() {
 
     //Usecases
     ..registerFactory(
-      () => UploadBlog(
+      () => UploadNote(
         serviceLocator(),
       ),
     )
     ..registerFactory(
-      () => UpdateBlog(
-        serviceLocator(),
-      ),
-    )
-    ..registerFactory(
-      () => GetAllBlogsById(
-        serviceLocator(),
-      ),
-    )
-    ..registerFactory(
-      () => DeleteBlog(
-        serviceLocator(),
-      ),
-    )
-    ..registerFactory(
-      () => GetAllBlogs(
+      () => GetAllNotes(
         serviceLocator(),
       ),
     );
 
-  //AuthBloc
   serviceLocator.registerLazySingleton(
-    () => BlogBloc(
-      uploadBlog: serviceLocator(),
-      getAllBlogs: serviceLocator(),
-      getAllBlogsById: serviceLocator(),
-      deleteBlog: serviceLocator(),
-      updateBlog: serviceLocator(),
+    () => NoteBloc(
+      uploadNote: serviceLocator(),
+      getAllNotes: serviceLocator(),
     ),
   );
 }

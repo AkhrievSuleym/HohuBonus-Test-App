@@ -1,21 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Constants {
-  static const List<String> topics = [
-    'Technology',
-    'Business',
-    'Sport',
-    'Programming',
-    'Entertainment',
-    'Games',
-    'Beauty',
-    'Education'
-  ];
-
   static const String defaultImageAssetPath = 'icon.png';
 }
 
