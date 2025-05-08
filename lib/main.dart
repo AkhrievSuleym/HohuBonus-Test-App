@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await initDependencies();
   runApp(MultiBlocProvider(
     providers: [
@@ -33,6 +34,9 @@ class _NoteAppState extends State<NoteApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const NotePage();
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.darkThemeMode,
+        home: const NotePage());
   }
 }

@@ -17,7 +17,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
-  _initNote();
   final supabase = await Supabase.initialize(
       url: AppSecrets.supabaseUrl, anonKey: AppSecrets.supabaseKey);
 
@@ -33,6 +32,8 @@ Future<void> initDependencies() async {
 
   serviceLocator.registerFactory<ConnectionChecker>(
       () => ConnectionCheckerImpl(serviceLocator()));
+
+  _initNote();
 }
 
 void _initNote() {

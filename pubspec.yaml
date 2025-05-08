@@ -46,7 +46,7 @@ dependencies:
   intl: ^0.20.2
   internet_connection_checker_plus: ^2.7.1
   hive: ^4.0.0-dev.2
-  #isar_flutter_libs: any
+  isar_flutter_libs: any
   path_provider: ^2.1.5
   cached_network_image: ^3.4.1
 
@@ -72,9 +72,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  assets:
-    - assets/black_banner.png
-    - assets/icon.png
+
 
   fonts:
   - family: BigShouldersStencil

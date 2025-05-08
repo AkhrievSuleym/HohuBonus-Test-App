@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 
 class NoteCard extends StatelessWidget {
   final NoteEntity note;
-  final Color? color;
   const NoteCard({
     super.key,
     required this.note,
-    required this.color,
   });
 
   @override

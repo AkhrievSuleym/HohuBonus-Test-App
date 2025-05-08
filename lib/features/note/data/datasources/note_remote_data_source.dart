@@ -52,7 +52,7 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
   @override
   Future<List<NoteModel>> getAllNotes() async {
     try {
-      final notes = await supabaseClient.from('notes');
+      final notes = await supabaseClient.from('notes').select();
       return notes
           .map(
             (note) => NoteModel.fromJson(note).copyWith(),

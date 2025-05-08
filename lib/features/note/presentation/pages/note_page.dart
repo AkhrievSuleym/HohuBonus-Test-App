@@ -65,11 +65,6 @@ class _NotePageState extends State<NotePage> {
                 final note = state.notes[index];
                 return NoteCard(
                   note: note,
-                  color: index % 3 == 0
-                      ? Colors.red[400]
-                      : index % 2 == 0
-                          ? Colors.green[400]
-                          : Colors.cyan,
                 );
               },
             );
