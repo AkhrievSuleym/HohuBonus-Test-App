@@ -70,7 +70,7 @@ class _NotePageState extends State<NotePage> {
             );
           }
           return const SizedBox(
-            height: 15,
+            height: 5,
           );
         },
       ),
