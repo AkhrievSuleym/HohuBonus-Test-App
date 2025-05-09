@@ -45,7 +45,7 @@ class NoteCard extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    note.title,
+                    'Note title: ${note.title}',
                     style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'BigShouldersStencil',
