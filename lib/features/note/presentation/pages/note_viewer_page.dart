@@ -42,7 +42,7 @@ class _NoteViewerPageState extends State<NoteViewerPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.note.title,
+                  "Note title: ${widget.note.title}",
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
